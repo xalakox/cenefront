@@ -1,23 +1,28 @@
 version: '3'
 services:
-  frontend:
-    container_name: frontend
+  cenefront:
+    container_name: cenefront
     build: .
     volumes:
       - .:/app
-      - fontendmodules:/app/node_modules
+      - cenefrontmodules:/app/node_modules
     ports:
       - "1234:1234"
-  backend:
-    container_name: backend
-    build: ../ins-020-001-backend/.
+    depends_on:
+      - ceneback
+  ceneback:
+    container_name: ceneback
+    build: ../ceneback/.
     volumes:
-      - ../ins-020-001-backend:/app
-      - backendmodules:/app/node_modules
+      - ../ceneback:/app
+      - cenebackmodules:/app/node_modules
     ports:
-      - "1234:1234"
-  database:
-    container_name: database
+      - "3000:3000"
+    depends_on:
+      - cenedata
+    command: npm run startdev
+  cenedata:
+    container_name: cenedata
     image: "mysql:5.6"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
@@ -25,6 +30,5 @@ services:
     ports:
       - 3306:3306
 volumes:
-  frontendmodules:
-  backendmodules:
-
+  cenefrontmodules:
+  cenebackmodules:
