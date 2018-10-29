@@ -1,0 +1,30 @@
+version: '3'
+services:
+  frontend:
+    container_name: frontend
+    build: .
+    volumes:
+      - .:/app
+      - fontendmodules:/app/node_modules
+    ports:
+      - "1234:1234"
+  backend:
+    container_name: backend
+    build: ../ins-020-001-backend/.
+    volumes:
+      - ../ins-020-001-backend:/app
+      - backendmodules:/app/node_modules
+    ports:
+      - "1234:1234"
+  database:
+    container_name: database
+    image: "mysql:5.6"
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - 3306:3306
+volumes:
+  frontendmodules:
+  backendmodules:
+
