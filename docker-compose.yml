@@ -14,13 +14,15 @@ services:
     container_name: ceneback
     build: ../ceneback/.
     volumes:
-      - ../ceneback:/app
+      - ../ceneback:/app:delegated
       - cenebackmodules:/app/node_modules
     ports:
       - "3000:3000"
     depends_on:
       - cenedata
     command: npm run startdev
+    env_file:
+      - ../ceneback/.env
   cenedata:
     container_name: cenedata
     image: "mysql:5.6"
