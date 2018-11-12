@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "startdev": "parcel index.html --hmr-port 4321 --hmr-hostname 0.0.0.0 --port 1234",
     "heroku-postbuild": "parcel build index.html",
-    "start": "http-server ./dist"
+    "start": "live-server  --entry-file=/dist/index.html"
   },
   "author": "Salvador Aceves Osuna",
   "license": "ISC",
@@ -33,9 +33,10 @@
     "base-64": "^0.1.0",
     "connected-react-router": "^5.0.1",
     "history": "^4.7.2",
-    "http-server": "^0.11.1",
+    "live-server": "^1.2.0",
     "moment": "^2.22.2",
     "moments": "0.0.2",
+    "parcel-bundler": "^1.10.3",
     "query-string": "^6.2.0",
     "react": "^16.6.1",
     "react-dom": "^16.5.2",
@@ -45,8 +46,7 @@
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-saga": "^0.16.2",
-    "parcel-bundler": "^1.10.3"
+    "redux-saga": "^0.16.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
