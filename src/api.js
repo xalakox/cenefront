@@ -47,6 +47,13 @@ export const saveUser = ({ token, nombre, password, options = {} } = {}) => api(
 export const getProfesores = ({ token } = {}) => api('/profesores', {
   method: 'GET',
   headers: {
-    Authorization: base64.encode(`Basic :${token}`),
+    Authorization: `Basic: ${base64.encode(`:${token}`)}`,
+  },
+});
+
+export const getProfesor = ({ token, profesor } = {}) => api(`/profesores/${profesor}`, {
+  method: 'GET',
+  headers: {
+    Authorization: `Basic: ${base64.encode(`:${token}`)}`,
   },
 });
