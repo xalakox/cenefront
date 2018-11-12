@@ -9,6 +9,7 @@ services:
     ports:
       - "1234:1234"
       - "4321:4321"
+    command: npm run startdev
     depends_on:
       - ceneback
   ceneback:

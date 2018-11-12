@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html --hmr-port 4321 --hmr-hostname 0.0.0.0 --port 1234"
+    "startdev": "parcel index.html --hmr-port 4321 --hmr-hostname 0.0.0.0 --port 1234",
+    "heroku-postbuild": "parcel build index.html",
+    "start": "http-server ./dist"
   },
   "author": "Salvador Aceves Osuna",
   "license": "ISC",
@@ -31,6 +33,7 @@
     "base-64": "^0.1.0",
     "connected-react-router": "^5.0.1",
     "history": "^4.7.2",
+    "http-server": "^0.11.1",
     "moment": "^2.22.2",
     "moments": "0.0.2",
     "query-string": "^6.2.0",
@@ -42,7 +45,8 @@
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-saga": "^0.16.2"
+    "redux-saga": "^0.16.2",
+    "parcel-bundler": "^1.10.3"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
@@ -50,7 +54,6 @@
     "babel-eslint": "^10.0.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "eslint": "^5.9.0",
-    "eslint-plugin-babel": "^5.2.1",
-    "parcel-bundler": "^1.10.3"
+    "eslint-plugin-babel": "^5.2.1"
   }
 }
