@@ -2,6 +2,7 @@
 const base64 = require('base-64');
 
 const api = async (url, opts) => {
+  const baseUrl = process.env.CENEBACK || 'http://localhost:3000';
   const newOpts = {
     ...opts,
     mode: 'cors',
@@ -12,7 +13,7 @@ const api = async (url, opts) => {
     },
     body: JSON.stringify(opts.body),
   };
-  const resp = await fetch(`http://localhost:3000${url}`, newOpts);
+  const resp = await fetch(`${baseUrl}${url}`, newOpts);
   if (resp.status > 299) {
     const jsonError = await resp.json();
     const splitError = (jsonError.error || jsonError).split(':');
