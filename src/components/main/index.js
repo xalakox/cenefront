@@ -86,6 +86,7 @@ class Main extends React.Component {
         >
           <TextField
             id="search"
+            fullWidth
             label="Buscar por nombre"
             className={classes.textField}
             value={this.state.search}

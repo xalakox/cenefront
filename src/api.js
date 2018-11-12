@@ -57,3 +57,11 @@ export const getProfesor = ({ token, profesor } = {}) => api(`/profesores/${prof
     Authorization: `Basic: ${base64.encode(`:${token}`)}`,
   },
 });
+
+export const saveComment = ({ token, comentario, profesor } = {}) => api('/profesores/comentar', {
+  method: 'POST',
+  headers: {
+    Authorization: `Basic: ${base64.encode(`:${token}`)}`,
+  },
+  body: { comentario, profesor },
+});

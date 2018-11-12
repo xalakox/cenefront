@@ -4,6 +4,7 @@ const defaultState = {
   error: false,
   data: [],
   profesor: null,
+  saving: false,
 };
 
 const auth = (state = defaultState, { type, payload }) => {
@@ -14,6 +15,12 @@ const auth = (state = defaultState, { type, payload }) => {
       return { ...state, loading: false, data: payload.comentarios, profesor: payload.profesor };
     case 'GETPROFESOR_FAILED':
       return { ...state, loading: false, error: true };
+    case 'SAVECOMMENT_START':
+      return { ...state, saving: true };
+    case 'SAVECOMMENT_SUCCESS':
+      return { ...state, saving: false };
+    case 'SAVECOMMENT_FAILED':
+      return { ...state, saving: false };
     default:
       return state;
   }
