@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "startdev": "parcel index.html --hmr-port 4321 --hmr-hostname 0.0.0.0 --port 1234",
     "heroku-postbuild": "parcel build index.html",
     "start": "live-server  --entry-file=/dist/index.html"
@@ -52,8 +52,17 @@
     "@babel/core": "^7.1.5",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "coveralls": "^3.0.2",
     "eslint": "^5.9.0",
-    "eslint-plugin-babel": "^5.2.1"
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "faker": "^4.1.0",
+    "jest": "^24.1.0"
   }
 }
