@@ -1,9 +1,11 @@
 
-import { put, takeLatest, call, select } from 'redux-saga/effects';
+import {
+  put, takeLatest, call, select,
+} from 'redux-saga/effects';
 
 import { getProfesores, getProfesor, saveComment } from '../../api';
 
-const getToken = ({ auth }) => auth.token;
+export const getToken = ({ auth }) => auth.token;
 
 function* doTraeProfesores() {
   const token = yield select(getToken);
@@ -34,7 +36,7 @@ function* doTraeComments({ payload }) {
   }
 }
 
-function* doSaveComment({ payload }) {
+export function* doSaveComment({ payload }) {
   const token = yield select(getToken);
   yield put({ type: 'SAVECOMMENT_START' });
   try {
@@ -45,11 +47,12 @@ function* doSaveComment({ payload }) {
     yield put({ type: 'SAVECOMMENT_SUCCESS', payload: retVal });
     yield call(doTraeComments, { payload });
   } catch (e) {
+    console.log(e);
     yield put({ type: 'SAVECOMMENT_FAILED', payload: 'No fue posible guardar el comentario' });
   }
 }
 
-function* showAlert({ payload }) {
+function showAlert({ payload }) {
   alert(payload);
 }
 
