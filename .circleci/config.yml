@@ -25,4 +25,4 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}        
       # corre las pruebas
-      - run: npm test -- --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
+      - run: npm test -- --coverage --coverageReporters=text-lcov | ./node_modules/.bin/coveralls
