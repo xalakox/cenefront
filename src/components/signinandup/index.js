@@ -54,11 +54,13 @@ class SignInAndUp extends React.Component {
       password: '',
     };
   }
-  handleChange = name => event => {
+
+  handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
   };
+
   render() {
     const { classes, location, token } = this.props;
     return (
@@ -75,18 +77,21 @@ class SignInAndUp extends React.Component {
               className={classes.media}
               image={loginHeader}
               title="Login Header"
-            />{ token }
+            />
+{ token }
             {/* <Typography gutterBottom variant="h5" component="h2">
                 Blog de evaluación
             </Typography> */}
-            {token ? <Redirect
+            {token ? (
+<Redirect
               to={{
                 pathname: '/main',
                 state: { from: location },
               }}
-            /> : undefined}
+            />
+) : undefined}
             <Route exact path="/signUp" component={SignUp} />
-            <Route exact path="/confirmarCorreo" component={TokenCheck}/>
+            <Route exact path="/confirmarCorreo" component={TokenCheck} />
             <Route exact path="/" component={Login} />
           </Card>
         </Grid>

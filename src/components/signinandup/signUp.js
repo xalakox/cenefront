@@ -49,24 +49,32 @@ class SignUp extends React.Component {
   state = {
     email: '',
   };
-  handleChange = name => event => {
+
+  handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
   };
+
   handleClick = () => {
     this.props.doSignUp(this.state.email);
   }
+
   render() {
-    const { classes, loading, emailSent, link } = this.props;
+    const {
+ classes, loading, emailSent, link 
+} = this.props;
     return (
       <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
           Alta de Usuarios
         </Typography>
-        {emailSent ? <Typography gutterBottom variant="p" component="p">
+        {emailSent ? (
+<Typography gutterBottom variant="p" component="p">
           Hemos enviado un correo para confirmar tu cuenta.{link ? <a href={link}>Click Aqui</a> : undefined}
-        </Typography> : <div>
+        </Typography>
+) : (
+<div>
           <TextField
             id="email"
             label="Correo Electr&oacute;nico"
@@ -86,7 +94,8 @@ class SignUp extends React.Component {
           >
             Crear Cuenta
           </Button>
-        </div>}
+        </div>
+)}
         <Divider className={classes.divider} />
         <Link to="/">
           <Typography variant="h6" component="h6">
@@ -114,4 +123,3 @@ const mapStateToProps = ({ auth }) => ({
 export default connect(mapStateToProps, {
   doSignUp,
 })(withStyles(styles)(SignUp));
-
