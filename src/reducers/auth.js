@@ -20,6 +20,8 @@ const auth = (state = defaultState, { type, payload }) => {
       return { ...state, loading: true };
     case 'SIGNUP_SUCCESS':
       return { ...state, loading: false, signUpEmailSent: true, link: payload.link };
+    case 'RESET_SIGNUPSENT':
+      return { ...state, signUpEmailSent: false };
     case 'SIGNUP_FAILED':
       return { ...state, loading: false, error: true };
     case 'CHECKTOKEN_START':

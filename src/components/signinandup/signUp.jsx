@@ -10,7 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { doSignUp } from './_actions';
+import { doSignUp, resetSignUpSent } from './_actions';
 
 const styles = theme => ({
   root: {
@@ -62,40 +62,51 @@ class SignUp extends React.Component {
 
   render() {
     const {
- classes, loading, emailSent, link 
-} = this.props;
+      classes, loading, emailSent, link, resetSignUpSent: resetSignUp,
+    } = this.props;
     return (
       <CardContent>
         <Typography gutterBottom variant="h5" component="h2">
           Alta de Usuarios
         </Typography>
         {emailSent ? (
-<Typography gutterBottom variant="p" component="p">
-          Hemos enviado un correo para confirmar tu cuenta.{link ? <a href={link}>Click Aqui</a> : undefined}
-        </Typography>
-) : (
-<div>
-          <TextField
-            id="email"
-            label="Correo Electr&oacute;nico"
-            className={classes.textField}
-            value={this.state.email}
-            onChange={this.handleChange('email')}
-            type="email"
-            margin="normal"
-            variant="outlined"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            onClick={this.handleClick}
-            disabled={loading}
-          >
+          <Typography gutterBottom variant="p" component="p">
+            Hemos enviado un correo para confirmar tu cuenta.
+            {link ? <a href={link}>Click Aqui</a> : (
+              <p>
+                <Button
+                  onClick={resetSignUp}
+                  variant="contained"
+                  color="primary"
+                >
+              Click Aqui para intentar de nuevo
+                </Button>
+              </p>
+            )}
+          </Typography>
+        ) : (
+          <div>
+            <TextField
+              id="email"
+              label="Correo Electr&oacute;nico"
+              className={classes.textField}
+              value={this.state.email}
+              onChange={this.handleChange('email')}
+              type="email"
+              margin="normal"
+              variant="outlined"
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={this.handleClick}
+              disabled={loading}
+            >
             Crear Cuenta
-          </Button>
-        </div>
-)}
+            </Button>
+          </div>
+        )}
         <Divider className={classes.divider} />
         <Link to="/">
           <Typography variant="h6" component="h6">
@@ -109,9 +120,10 @@ class SignUp extends React.Component {
 
 SignUp.propTypes = {
   classes: PropTypes.object,
-  loading: PropTypes.bool,
   emailSent: PropTypes.bool,
   link: PropTypes.string,
+  loading: PropTypes.bool,
+  resetSignUpSent: PropTypes.func,
 };
 
 const mapStateToProps = ({ auth }) => ({
@@ -122,4 +134,5 @@ const mapStateToProps = ({ auth }) => ({
 
 export default connect(mapStateToProps, {
   doSignUp,
+  resetSignUpSent,
 })(withStyles(styles)(SignUp));
