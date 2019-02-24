@@ -11,6 +11,7 @@ module.exports = {
     'no-use-before-define': 0,
     'no-console': 0,
     'new-cap': 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
   },
   'parser': 'babel-eslint',
   'parserOptions': {

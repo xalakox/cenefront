@@ -37,7 +37,7 @@ const auth = (state = defaultState, { type, payload }) => {
     case 'SAVEUSER_FAILED':
       return { ...state, loading: false, error: true };
     case 'LOGOUT':
-      return { ...state, loading: false, error: false, token: null, link: null };
+      return { ...defaultState };
     default:
       return state;
   }

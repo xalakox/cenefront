@@ -16,8 +16,6 @@ import moment from 'moment';
 import { history } from '../../configureStore.js';
 import { saveComment, getProfesor } from './_actions';
 
-
-
 const maxResults = 20;
 
 const styles = theme => ({
@@ -101,17 +99,22 @@ class Profesor extends React.Component {
             {profesor.apellidos }
           </Typography>
         ) : undefined}
-        {results.length > 0 ? results.slice(0, maxResults).map(comentario => (
-          <Card key={comentario.id} className={classes.card}>
+        {results.length > 0 ? results.slice(0, maxResults).map(({
+          id,
+          Autore,
+          createdAt,
+          comentario,
+        }) => (
+          <Card key={id} className={classes.card}>
             <CardContent>
               <Typography color="textSecondary">
-                {comentario.Autore.nombre}
+                {(Autore || { nombre: 'Anónimo' }).nombre}
                 {' '}
-                {moment(comentario.createdAt).fromNow()}
+                {moment(createdAt).fromNow()}
               </Typography>
               <Divider className={classes.divider} />
               <Typography color="textSecondary">
-                {comentario.comentario}
+                {comentario}
               </Typography>
             </CardContent>
           </Card>
