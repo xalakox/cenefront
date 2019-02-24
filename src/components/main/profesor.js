@@ -6,7 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { history } from '../../configureStore.js';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
@@ -14,11 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import moment from 'moment';
-import { saveComment } from './_actions';
-
-
-import { getProfesor } from './_actions';
-
+import { history } from '../../configureStore.js';
+import { saveComment, getProfesor } from './_actions';
 
 const maxResults = 20;
 
@@ -55,74 +51,101 @@ class Profesor extends React.Component {
   state = {
     comment: '',
   };
+
   componentDidMount() {
     const { profesorId } = this.props.match.params;
     this.props.getProfesor(profesorId);
   }
+
   componentDidUpdate(prevProps) {
     if (!this.props.saving && prevProps.saving) {
       // se guardo el comentario, tenemos que borrar la entrada
       if (this.state.comment) this.setState({ comment: '' });
     }
   }
-  handleChange = name => event => {
+
+  handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
   };
+
   saveComment = () => {
     const { profesorId } = this.props.match.params;
     this.props.saveComment(this.state.comment, profesorId);
   }
+
   render() {
-    const { classes, location, token, comentarios, loading, profesor, saving } = this.props;
+    const {
+      classes, location, token, comentarios, loading, profesor, saving,
+    } = this.props;
     const results = comentarios;
     if (!token) {
-      return (<Redirect
-        to={{
-          pathname: '/',
-          state: { from: location },
-        }}
-      />);
+      return (
+        <Redirect
+          to={{
+            pathname: '/',
+            state: { from: location },
+          }}
+        />
+      );
     }
-    return loading ? <CircularProgress className={classes.progress} /> : <div>
-      {profesor ? <Typography variant="h4" className={classes.title} color="textSecondary" gutterBottom>
-        {profesor.nombre} {profesor.apellidos }
-      </Typography> : undefined}
-      {results.length > 0 ? results.slice(0, maxResults).map(comentario => <Card key={comentario.id} className={classes.card}>
-        <CardContent>
-          <Typography color="textSecondary">
-            {comentario.Autore.nombre} {moment(comentario.createdAt).fromNow()}
+    return loading ? <CircularProgress className={classes.progress} /> : (
+      <div>
+        {profesor ? (
+          <Typography variant="h4" className={classes.title} color="textSecondary" gutterBottom>
+            {profesor.nombre}
+            {' '}
+            {profesor.apellidos }
           </Typography>
-          <Divider className={classes.divider}/>
-          <Typography color="textSecondary">
-            {comentario.comentario}
-          </Typography>
-        </CardContent>
-      </Card>) : undefined}
-      <Card className={classes.card}>
-        <CardContent>
-          <TextField
-            multiline
-            fullWidth
-            id="comment"
-            label="Añadir comentario"
-            className={classes.textField}
-            value={this.state.comment}
-            onChange={this.handleChange('comment')}
-            margin="normal"
-            variant="outlined"
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={saving}
-            className={classes.button}
-            onClick={this.saveComment}
-          >Guardar Comentario</Button>
-        </CardContent>
-      </Card>
-    </div>;
+        ) : undefined}
+        {results.length > 0 ? results.slice(0, maxResults).map(({
+          id,
+          Autore,
+          createdAt,
+          comentario,
+        }) => (
+          <Card key={id} className={classes.card}>
+            <CardContent>
+              <Typography color="textSecondary">
+                {(Autore || { nombre: 'Anónimo' }).nombre}
+                {' '}
+                {moment(createdAt).fromNow()}
+              </Typography>
+              <Divider className={classes.divider} />
+              <Typography color="textSecondary">
+                {comentario}
+              </Typography>
+            </CardContent>
+          </Card>
+        )) : undefined}
+        <Card className={classes.card}>
+          <CardContent>
+            <TextField
+              multiline
+              fullWidth
+              id="comment"
+              label="Añadir comentario"
+              className={classes.textField}
+              value={this.state.comment}
+              onChange={this.handleChange('comment')}
+              margin="normal"
+              variant="outlined"
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={saving}
+              className={classes.button}
+              onClick={this.saveComment}
+            >
+Guardar Comentario
+
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
   }
 }
 

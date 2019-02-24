@@ -17,7 +17,15 @@ function* doTraeProfesores() {
     );
     yield put({ type: 'GETPROFESORES_SUCCESS', payload: retVal });
   } catch (e) {
-    yield put({ type: 'GETPROFESORES_FAILED', payload: 'No fue posible traer la lista de Profesores' });
+    yield errorHandler('GETPROFESORES', e);
+  }
+}
+
+function* errorHandler(prefix, error) {
+  if (error.message === 'Credenciales Invalidas') {
+    yield put({ type: 'AUTH_ERROR' });
+  } else {
+    yield put({ type: `${prefix}_FAILED`, payload: 'No fue posible traer la list de Comentarios' });
   }
 }
 
@@ -31,8 +39,7 @@ function* doTraeComments({ payload }) {
     );
     yield put({ type: 'GETPROFESOR_SUCCESS', payload: retVal });
   } catch (e) {
-    console.log('error !', e);
-    yield put({ type: 'GETPROFESOR_FAILED', payload: 'No fue posible traer la lista de Profesores' });
+    yield errorHandler('GETPROFESOR', e);
   }
 }
 
@@ -47,9 +54,13 @@ export function* doSaveComment({ payload }) {
     yield put({ type: 'SAVECOMMENT_SUCCESS', payload: retVal });
     yield call(doTraeComments, { payload });
   } catch (e) {
-    console.log(e);
-    yield put({ type: 'SAVECOMMENT_FAILED', payload: 'No fue posible guardar el comentario' });
+    yield errorHandler('SAVECOMMENT', e);
   }
+}
+
+function* AuthError() {
+  yield put({ type: 'SHOW_ALERT', payload: 'Sus credenciales han sido invalidadas.' });
+  yield put({ type: 'LOGOUT' });
 }
 
 function showAlert({ payload }) {
@@ -63,4 +74,6 @@ export const main = [
   takeLatest('SAVECOMMENT', doSaveComment),
   takeLatest('SAVECOMMENT_FAILED', showAlert),
   takeLatest('GETPROFESOR_FAILED', showAlert),
+  takeLatest('AUTH_ERROR', AuthError),
+  takeLatest('SHOW_ALERT', showAlert),
 ];

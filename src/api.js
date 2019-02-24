@@ -1,5 +1,8 @@
 
 const base64 = require('base-64');
+import {
+  put
+} from 'redux-saga/effects';
 
 const api = async (url, opts) => {
   const baseUrl = process.env.CENEBACK || 'http://localhost:3000';
@@ -14,7 +17,8 @@ const api = async (url, opts) => {
     body: JSON.stringify(opts.body),
   };
   const resp = await fetch(`${baseUrl}${url}`, newOpts);
-  if (resp.status > 299) {
+  const { status } = resp;
+  if (status > 299) {
     const jsonError = await resp.json();
     const splitError = (jsonError.error || jsonError).split(':');
     const mensaje = splitError[1] || splitError[0];
