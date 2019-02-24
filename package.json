@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "startdev": "parcel index.html --hmr-port 4321 --hmr-hostname 0.0.0.0 --port 1234",
-    "heroku-postbuild": "export > .env && parcel build index.html --out-dir public_html/",
+    "heroku-postbuild": "export > .env && parcel build index.html",
     "start": "live-server  --entry-file=/dist/index.html"
   },
   "author": "Salvador Aceves Osuna",
