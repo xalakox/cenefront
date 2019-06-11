@@ -3,6 +3,8 @@ services:
   cenefront:
     container_name: cenefront
     build: .
+    env_file:
+      - ./.env
     volumes:
       - .:/app
       - cenefrontmodules:/app/node_modules
