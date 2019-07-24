@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest",
     "heroku-postbuild": "export > .env && parcel build index.html",
-    "start": "parcel index.html --hmr-port 4321 --hmr-hostname 0.0.0.0 --port 1234"
+    "start": "parcel index.html --hmr-port 4321 --hmr-hostname 0.0.0.0 --port 1234",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "Salvador Aceves Osuna",
   "license": "ISC",
@@ -45,7 +47,8 @@
     "react-router-redux": "^4.0.8",
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
-    "redux-saga": "^0.16.2"
+    "redux-saga": "^0.16.2",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
@@ -63,5 +66,6 @@
     "eslint-plugin-react": "^7.12.4",
     "faker": "^4.1.0",
     "jest": "^24.1.0"
-  }
+  },
+  "snyk": true
 }
