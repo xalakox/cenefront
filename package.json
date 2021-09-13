@@ -36,7 +36,7 @@
     "history": "^4.7.2",
     "moment": "^2.22.2",
     "moments": "0.0.2",
-    "parcel-bundler": "^1.10.3",
+    "parcel-bundler": "^1.11.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.2.0",
     "react": "^16.6.1",
@@ -48,7 +48,7 @@
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.2",
-    "snyk": "^1.199.2"
+    "snyk": "^1.685.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.5",
